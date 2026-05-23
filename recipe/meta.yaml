@@ -6,7 +6,7 @@ package:
   version: {{ version }}
 
 source:
-  url: https://pypi.io/packages/source/{{ name[0] }}/{{ name }}/napari-kics-{{ version }}.tar.gz
+  url: https://pypi.org/packages/source/{{ name[0] }}/{{ name }}/napari-kics-{{ version }}.tar.gz
   sha256: 5cce6d996fc010e14ce3e57bcc1670ea6bfe528757976d85f4f4b7e81a78f53f
 
 build:
@@ -14,12 +14,12 @@ build:
     - karyotype-analysis-plots = napari_kics.analysis_plots.__main__:main
   noarch: python
   script: {{ PYTHON }} -m pip install . -vv
-  number: 0
+  number: 1
 
 requirements:
   host:
     - pip
-    - python >=3.7
+    - python {{ python_min }}
   run:
     - napari
     - napari-plugin-engine >=0.1.4
@@ -27,7 +27,7 @@ requirements:
     - pandas
     - pulp
     - pyqtgraph
-    - python >=3.7
+    - python >={{ python_min }}
     - scikit-image
 
 test:
@@ -42,6 +42,7 @@ test:
     - karyotype-analysis-plots --help
   requires:
     - pip
+    - python {{ python_min }}
 
 about:
   home: https://github.com/mpicbg-csbd/napari-kics
